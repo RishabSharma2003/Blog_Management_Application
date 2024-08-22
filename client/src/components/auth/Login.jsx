@@ -1,16 +1,23 @@
 import React from 'react'
-import {Box, TextField, Button, styled} from '@mui/material'
+import {Box, TextField, Button, styled,Typography} from '@mui/material'
 
 const Login = () => {
   return (
     <Component>
       <Box>
+        {/* image */}
         <Image src="https://www.sesta.it/wp-content/uploads/2021/03/logo-blog-sesta-trasparente.png" alt="" />
+
         <Wrappper>
+          {/* labels */}
           <TextField id="standard-basic" label="Email" variant="standard" />
           <TextField id="standard-basic" label="Password" variant="standard" />
-          <Button variant="contained">Login</Button>
-          <Button variant="Outlined">Create an account</Button>
+
+          {/* buttons */}
+          <LoginButton variant="contained">Login</LoginButton>
+          <Text style={{textAlign:'center'}}>OR</Text>
+          <SignUpButton variant="outlined">Create an account</SignUpButton>
+
         </Wrappper>
       </Box>
 
@@ -40,8 +47,24 @@ const Wrappper=styled(Box)`
   display:flex;
   flex-direction:column;
   flex:1;
-  &>div,&button{
+  &>div,&>button,&>p{
     margin-top:20px
   }
+`//login button styling
+const LoginButton=styled(Button)`
+  background:#FB641B;
+  color:#fff;
+  height:48px;
+  border-radius:6px
+`//sign up button styling
+const SignUpButton=styled(Button)`
+  background:#fff;
+  color:#2874f0;
+  height:48px;
+  border-radius:2px;
+  box-shadow:0 2px 4px 0 rgb(0 0 0/20%);
+`//OR styling
+const Text=styled(Typography)`
+  font-size:14px;
+  color:#878787;
 `
-
