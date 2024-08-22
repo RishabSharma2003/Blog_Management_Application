@@ -1,24 +1,64 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {Box, TextField, Button, styled,Typography} from '@mui/material'
 
+// stores signup values
+const signupInitialValues={
+  name:'',
+  username:'',
+  password:''
+}
+
+
 const Login = () => {
+  //use state for toggle
+  const [account,setAccount]=useState('login');
+  const [signup,setSignup]=useState(signupInitialValues);
+
+  //setting the signup values
+  const onInputChange=(e)=>{
+    setSignup({...signup,[e.target.name]:e.target.value})
+    console.log(e.target.name,e.target.value,signup);
+  }
+
   return (
     <Component>
       <Box>
         {/* image */}
         <Image src="https://www.sesta.it/wp-content/uploads/2021/03/logo-blog-sesta-trasparente.png" alt="" />
 
-        <Wrappper>
-          {/* labels */}
-          <TextField id="standard-basic" label="Email" variant="standard" />
-          <TextField id="standard-basic" label="Password" variant="standard" />
+        {
+          account==='login'?
+            (
+              <Wrappper>
+                {/* /////////////////////login////////////////////// */}
+                {/* labels */}
+                <TextField id="standard-basic" label="Username" variant="standard" />
+                <TextField id="standard-basic" label="Password" variant="standard" />
 
-          {/* buttons */}
-          <LoginButton variant="contained">Login</LoginButton>
-          <Text style={{textAlign:'center'}}>OR</Text>
-          <SignUpButton variant="outlined">Create an account</SignUpButton>
+                {/* buttons */}
+                <LoginButton variant="contained">Login</LoginButton>
+                <Text style={{textAlign:'center'}}>OR</Text>
+                <SignUpButton onClick={()=>setAccount('signup')} variant="outlined">Create an account</SignUpButton>
 
-        </Wrappper>
+              </Wrappper>
+            )
+            :
+            (
+              <Wrappper>
+                {/* /////////////////////register////////////////////// */}
+                {/* labels */}
+                <TextField onChange={onInputChange} name='name' id="standard-basic" label="Name" variant="standard" />
+                <TextField onChange={onInputChange} name='username' id="standard-basic" label="Username" variant="standard" />
+                <TextField onChange={onInputChange} name='password'id="standard-basic" label="Password" variant="standard" />
+
+                {/* buttons */}
+                <SignUpButton variant="outlined">Sign up</SignUpButton>
+                <Text style={{textAlign:'center'}}>OR</Text>
+                <LoginButton onClick={()=>setAccount('login')} variant="contained">Already have an account</LoginButton>
+
+              </Wrappper>
+            )
+          }
       </Box>
 
     </Component>
@@ -41,6 +81,7 @@ const Component=styled(Box)`
   width:400px;
   margin:auto;
   box-shadow:5px 2px 5px 2px rgba(0 0 0/0.6);
+  margin-top:65px;
 `// for image and textField layout
 const Wrappper=styled(Box)`
   padding:25px 35px;
