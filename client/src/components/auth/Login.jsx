@@ -1,9 +1,15 @@
 import React, { useState } from 'react'
 import {Box, TextField, Button, styled,Typography} from '@mui/material'
+import { API } from '../../service/api.js';
 
-// stores signup values
+// initial signup values
 const signupInitialValues={
   name:'',
+  username:'',
+  password:''
+}
+// initial login values
+const loginInitialValues={
   username:'',
   password:''
 }
@@ -13,11 +19,43 @@ const Login = () => {
   //use state for toggle
   const [account,setAccount]=useState('login');
   const [signup,setSignup]=useState(signupInitialValues);
+  const [login,setLogin]=useState(loginInitialValues);
+  const [error,setError]=useState('');
 
   //setting the signup values
   const onInputChange=(e)=>{
     setSignup({...signup,[e.target.name]:e.target.value})
     console.log(e.target.name,e.target.value,signup);
+  }
+
+  //setting the login values
+  const onValueChange=(e)=>{
+    setLogin({...login,[e.target.name]:e.target.value})
+  }
+
+  //on signup
+  const signupUser=async()=>{
+    let response=await API.userSignup(signup)
+    if(response.isSuccess){
+      console.log("response")
+      console.log(response)
+      setSignup(signupInitialValues)
+      setAccount('login')
+    }else{
+      setError('something went wrong please try again later')
+    }
+  }
+
+  //on login
+  const loginUser=async()=>{
+    let response=await API.userLogin(login)
+    if(response.isSuccess){
+      console.log("response")
+      console.log(response)
+      setLogin(loginInitialValues)
+    }else{
+      setError('something went wrong please try again later')
+    }
   }
 
   return (
@@ -32,11 +70,12 @@ const Login = () => {
               <Wrappper>
                 {/* /////////////////////login////////////////////// */}
                 {/* labels */}
-                <TextField id="standard-basic" label="Username" variant="standard" />
-                <TextField id="standard-basic" label="Password" variant="standard" />
+                <TextField onChange={onValueChange} name='username' id="standard-basic" label="Username" variant="standard" />
+                <TextField onChange={onValueChange} name='password' id="standard-basic" label="Password" variant="standard" />
 
+                {error && <Error>{error}</Error>}
                 {/* buttons */}
-                <LoginButton variant="contained">Login</LoginButton>
+                <LoginButton onClick={loginUser} variant="contained">Login</LoginButton>
                 <Text style={{textAlign:'center'}}>OR</Text>
                 <SignUpButton onClick={()=>setAccount('signup')} variant="outlined">Create an account</SignUpButton>
 
@@ -51,8 +90,9 @@ const Login = () => {
                 <TextField onChange={onInputChange} name='username' id="standard-basic" label="Username" variant="standard" />
                 <TextField onChange={onInputChange} name='password'id="standard-basic" label="Password" variant="standard" />
 
+                {error && <Error>{error}</Error>}
                 {/* buttons */}
-                <SignUpButton variant="outlined">Sign up</SignUpButton>
+                <SignUpButton onClick={signupUser} variant="outlined">Sign up</SignUpButton>
                 <Text style={{textAlign:'center'}}>OR</Text>
                 <LoginButton onClick={()=>setAccount('login')} variant="contained">Already have an account</LoginButton>
 
@@ -108,4 +148,11 @@ const SignUpButton=styled(Button)`
 const Text=styled(Typography)`
   font-size:14px;
   color:#878787;
+`//error styling
+const Error=styled(Typography)`
+  font-size:10px;
+  color:#ff6161;
+  line-height:0;
+  margin-top:10px;
+  font-weight:600
 `
