@@ -2,6 +2,7 @@ import userModel from "../models/userModel.js";
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
+import tokenModel from "../models/tokenModel.js";
 
 dotenv.config()
 
@@ -24,15 +25,19 @@ export const loginUser=async(req,res)=>{
         if(!user){
             return res.status(400).json({msg:"Username dosn't match"})
         }
-
+        console.log("user finded")
         let match=await bcrypt.compare(req.body.password,user.password)
         if(match){
+            console.log("matched")
             const accessToken=jwt.sign(user.toJSON(),process.env.ACCESS_SECRET_KEY,{expiresIn:'15m'})
             const refreshToken=jwt.sign(user.toJSON(),process.env.REFRESH_SECRET_KEY)
+
+            await new tokenModel({token:refreshToken}).save()
+            return res.status(200).json({accessToken:accessToken,refreshToken:refreshToken,user:user.name,username:user.username})
         }else{
             res.status(400).json({msg:"password dose not match"})
         }
     } catch (error) {
-        
+        res.status(500).json({msg:`Error while login user ${error}`})
     }
 }

@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import {Box, TextField, Button, styled,Typography} from '@mui/material'
 import { API } from '../../service/api.js';
+import { DataContext } from '../../context/DataProvider.js';
+import { useNavigate } from 'react-router-dom';
 
 // initial signup values
 const signupInitialValues={
@@ -15,12 +17,16 @@ const loginInitialValues={
 }
 
 
-const Login = () => {
+const Login = ({isUserAuthenticated}) => {
   //use state for toggle
-  const [account,setAccount]=useState('login');
+  const [account,setToggleAccount]=useState('login');
   const [signup,setSignup]=useState(signupInitialValues);
   const [login,setLogin]=useState(loginInitialValues);
   const [error,setError]=useState('');
+  //context api data
+  const {setAccount}=useContext(DataContext);
+  //navigate
+  const navigate=useNavigate();
 
   //setting the signup values
   const onInputChange=(e)=>{
@@ -40,7 +46,7 @@ const Login = () => {
       console.log("response")
       console.log(response)
       setSignup(signupInitialValues)
-      setAccount('login')
+      setToggleAccount('login')
     }else{
       setError('something went wrong please try again later')
     }
@@ -53,10 +59,17 @@ const Login = () => {
       console.log("response")
       console.log(response)
       setLogin(loginInitialValues)
+      setError('')
+      sessionStorage.setItem('accessToken',`Bearer ${response.data.accessToken}`)
+      sessionStorage.setItem('refreshToken',`Bearer ${response.data.refreshToken}`)
+      setAccount({username:response.data.username,name:response.data.name})
+      isUserAuthenticated(true)
+      navigate('/')
     }else{
       setError('something went wrong please try again later')
     }
   }
+
 
   return (
     <Component>
@@ -77,7 +90,7 @@ const Login = () => {
                 {/* buttons */}
                 <LoginButton onClick={loginUser} variant="contained">Login</LoginButton>
                 <Text style={{textAlign:'center'}}>OR</Text>
-                <SignUpButton onClick={()=>setAccount('signup')} variant="outlined">Create an account</SignUpButton>
+                <SignUpButton onClick={()=>setToggleAccount('signup')} variant="outlined">Create an account</SignUpButton>
 
               </Wrappper>
             )
@@ -94,7 +107,7 @@ const Login = () => {
                 {/* buttons */}
                 <SignUpButton onClick={signupUser} variant="outlined">Sign up</SignUpButton>
                 <Text style={{textAlign:'center'}}>OR</Text>
-                <LoginButton onClick={()=>setAccount('login')} variant="contained">Already have an account</LoginButton>
+                <LoginButton onClick={()=>setToggleAccount('login')} variant="contained">Already have an account</LoginButton>
 
               </Wrappper>
             )
@@ -121,7 +134,7 @@ const Component=styled(Box)`
   width:400px;
   margin:auto;
   box-shadow:5px 2px 5px 2px rgba(0 0 0/0.6);
-  margin-top:65px;
+  margin-top:90px;
 `// for image and textField layout
 const Wrappper=styled(Box)`
   padding:25px 35px;

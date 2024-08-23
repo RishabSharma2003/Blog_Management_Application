@@ -1,5 +1,10 @@
 import mongoose from "mongoose";
 
 const tokenSchema=new mongoose.Schema({
-    ro
+    token:{
+        type:String,
+        required:true
+    }
 })
+
+export default mongoose.model('model',tokenSchema)
