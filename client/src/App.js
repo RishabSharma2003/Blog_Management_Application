@@ -1,12 +1,12 @@
 import { useState } from 'react';
 import './App.css';
 
-//from auth
 import Login from './components/auth/Login';
 import Home from './components/home/Home';
 import Header from './components/navbar/Header';
 import DataProvider from './context/DataProvider';
 import {BrowserRouter,Routes,Route, Navigate, Outlet} from 'react-router-dom'
+import CreatePost from './components/create/CreatePost';
 
 const PrivateRoute=({isAuthenticated,...props})=>{
   return isAuthenticated?
@@ -31,9 +31,16 @@ function App() {
           <div style={{marginTop:64}}>
             <Routes>
               <Route path='/login' element={<Login isUserAuthenticated={isUserAuthenticated}/>}/>
+
+              {/* to home */}
               <Route path='/' element={<PrivateRoute isAuthenticated={isAuthenticated}/>}>
                 <Route path='/' element={<Home/>}/>
               </Route>
+              {/* to create post */}
+              <Route path='/create' element={<PrivateRoute isAuthenticated={isAuthenticated}/>}>
+                <Route path='/create' element={<CreatePost/>}/>
+              </Route>
+
             </Routes>
           </div>
         </DataProvider>
