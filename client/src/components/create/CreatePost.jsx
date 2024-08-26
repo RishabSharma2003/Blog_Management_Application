@@ -1,15 +1,16 @@
-import { Box,FormControl,styled } from '@mui/material'
-import React from 'react'
+import { Box,FormControl,styled } from '@mui/material';
+import {AddCircleIcon as Add} from '@mui/icons-material/AddCircle';
+import React from 'react';
 
 const CreatePost = () => {
   return (
     <Container>
       <Image src='https://images.unsplash.com/photo-1543128639-4cb7e6eeef1b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bGFwdG9wJTIwc2V0dXB8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80'/>
 
-        <FormControl>
-            <label htmlFor='fileInput'>Input</label>
-            <input type='file'/>
-        </FormControl>
+      <FormControl>
+          <label htmlFor='fileInput'>Input</label>
+          <input type='file'/>
+      </FormControl>
     </Container>
   )
 }
