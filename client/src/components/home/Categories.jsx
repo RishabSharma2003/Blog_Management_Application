@@ -1,25 +1,31 @@
-import { Button, Table, TableBody, TableCell, TableHead, TableRow , styled} from '@mui/material'
-import React from 'react'
-import { Link } from 'react-router-dom'
+import { Button, Table, TableBody, TableCell, TableHead, TableRow, styled } from '@mui/material';
+import React from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
+
+
 
 const Categories = () => {
+
+    const [searchParams] =useSearchParams();
+    const category = searchParams.get('category');
+
   return (
     <>
-        <Link to='/create'>
+        <StyledLink to={`/create?category=${category || ''}`}>
             <StyledButton variant='contained'>Create Blog</StyledButton>
-        </Link>
+        </StyledLink>
 
         <StyledTable>
             <TableHead>
                 <TableRow>
-                    <TableCell>All Categories</TableCell>
+                    <TableCell><StyledLink to='/'>All Categories</StyledLink></TableCell>
                 </TableRow>
             </TableHead>
             <TableBody>
                 {
                     categories.map((category)=>{
                         return(<TableRow key={category.id}>
-                            <TableCell>{category.type}</TableCell>
+                            <TableCell><StyledLink to={`/?category=${category.type}`}>{category.type}</StyledLink></TableCell>
                         </TableRow>)
                     })
                 }
@@ -48,4 +54,8 @@ const StyledButton = styled(Button)`
     text-decoration: none;
 `;
 
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    color:inherit;
+`
 export default Categories
