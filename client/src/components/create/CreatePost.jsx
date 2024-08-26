@@ -15,6 +15,8 @@ const CreatePost = () => {
 
   const location = useLocation();
 
+  const url = post.picture ? post.picture :'https://images.unsplash.com/photo-1543128639-4cb7e6eeef1b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bGFwdG9wJTIwc2V0dXB8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80';
+
     useEffect(() =>{
       const getImage = async () =>{
         if (file) {
@@ -23,8 +25,8 @@ const CreatePost = () => {
           data.append("file", file);
 
           //API call
-          await API.uploadFile(file);
-          post.picture = ''
+          const response = await API.uploadFile(file);
+          post.picture = response.data
 
         }
       }
@@ -41,7 +43,7 @@ const CreatePost = () => {
   return (
 
     <Container>
-      <Image src='https://images.unsplash.com/photo-1543128639-4cb7e6eeef1b?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bGFwdG9wJTIwc2V0dXB8ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80' alt="banner"/>
+      <Image src={url} alt="banner"/>
 
       <StyledFormControl>
           <label htmlFor='fileInput'><AddCircle fontSize='large' color='action'/></label>
