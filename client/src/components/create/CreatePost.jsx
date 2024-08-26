@@ -11,7 +11,7 @@ const CreatePost = () => {
   const [post, setPost] = useState(initialPost);
   const [file, setFile] = useState('');
 
-  const {acoount} = useContext(DataContext);
+  const {account} = useContext(DataContext);
 
   const location = useLocation();
 
