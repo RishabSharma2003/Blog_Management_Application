@@ -8,6 +8,9 @@ const Categories = () => {
 
     const [searchParams] =useSearchParams();
     const category = searchParams.get('category');
+    console.log(category)
+    
+
 
   return (
     <>
@@ -23,10 +26,14 @@ const Categories = () => {
             </TableHead>
             <TableBody>
                 {
-                    categories.map((category)=>{
-                        return(<TableRow key={category.id}>
-                            <TableCell><StyledLink to={`/?category=${category.type}`}>{category.type}</StyledLink></TableCell>
-                        </TableRow>)
+                    categories.map((c)=>{
+                        return(
+                            <TableRow key={c.id}>
+                                <TableCell>
+                                    <StyledLink to={`/?category=${c.type}`}>{c.type}</StyledLink>
+                                </TableCell>
+                            </TableRow>
+                        )
                     })
                 }
             </TableBody>

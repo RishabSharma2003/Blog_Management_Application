@@ -10,6 +10,8 @@ const CreatePost = () => {
 
   const [post, setPost] = useState(initialPost);
   const [file, setFile] = useState('');
+  
+  //console.log(file)
 
   const {account} = useContext(DataContext);
 
@@ -19,13 +21,18 @@ const CreatePost = () => {
 
     useEffect(() =>{
       const getImage = async () =>{
+        console.log(file)
         if (file) {
           const data =new FormData();
           data.append("name", file.name);
           data.append("file", file);
+          for (let [key, value] of data.entries()) {
+            console.log(`${key}:`, value);
+          }
 
           //API call
-          const response = await API.uploadFile(file);
+          const response = await API.uploadFile(data);
+          console.log(response.data)
           post.picture = response.data
 
         }
@@ -47,8 +54,14 @@ const CreatePost = () => {
 
       <StyledFormControl>
           <label htmlFor='fileInput'><AddCircle fontSize='large' color='action'/></label>
-          <input type='file' id='fileInput' style={{display:'none'}} onChange={(e) => setFile(e.target.files[0])}/>
-
+          <input type='file' id='fileInput' style={{display:'none'}} 
+            onChange={(e) => {
+              const selectedFile = e.target.files[0];
+              console.log("selectedFile");
+              console.log(selectedFile); // Logs the selected file directly
+              setFile(selectedFile);
+            }}
+          />
           <InputTextField placeholder='title' name="title" onChange={(e) => handlechange(e)}/>
           <Button variant='contained'>Publish</Button>
       </StyledFormControl>
@@ -60,43 +73,43 @@ const CreatePost = () => {
 }
 
 const Container = styled(Box)({
-    margin: '50px 100px',
+  margin: '50px 100px',
 });
 
 const Image = styled('img')({
-    width: '100%',
-    height: '50vh',
-    objectFit: 'cover'
+  width: '100%',
+  height: '50vh',
+  objectFit: 'cover'
 });
 
 const StyledFormControl = styled(FormControl)`
-    margin-top: 10px;
-    display: flex;
-    flex-direction:row;
+  margin-top: 10px;
+  display: flex;
+  flex-direction:row;
 `;
 
 const InputTextField = styled(InputBase)`
-    flex:1;
-    margin:0 30px;
-    font-size:25px;
+  flex:1;
+  margin:0 30px;
+  font-size:25px;
 `;
 
 const Textarea = styled(TextareaAutosize)`
-    width:100%;
-    font-size:18px;
-    border:none;
-    &:focus-visible{ outline:none;}
-    margin:15px;
+  width:100%;
+  font-size:18px;
+  border:none;
+  &:focus-visible{ outline:none;}
+  margin:15px;
 
 `;
 
 const initialPost = {
-    title: '',
-    description: '',
-    picture: '',
-    username: '',
-    categories: '',
-    createdDarte: new Date()
+  title: '',
+  description: '',
+  picture: '',
+  username: '',
+  categories: '',
+  createdDarte: new Date()
 
 }
 
