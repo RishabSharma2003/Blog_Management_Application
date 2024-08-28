@@ -4,7 +4,7 @@ import  AddCircle from '@mui/icons-material/AddCircle';
 import React from 'react'
 import { useLocation } from 'react-router-dom';
 import { DataContext } from '../../context/DataProvider';
-import {API} from '../../service/api.';
+import {API} from '../../service/api.js';
 
 const CreatePost = () => {
 
