@@ -7,22 +7,22 @@ import { API } from '../../service/api';
 
 const DetailView = () => { 
 
-    comst [post, setPost] = useState({});
+    // comst [post, setPost] = useState({});
 
-    const {id} = useParams();
+    // const {id} = useParams();
 
-    const url = post.picture ? post.picture : '';
+    // const url = post.picture ? post.picture : '';
 
-    useEffect(() => {
-        const fetchData = async() =>{
+    // useEffect(() => {
+    //     const fetchData = async() =>{
 
-        }
-        fetchData();
-    },[])
+    //     }
+    //     fetchData();
+    // },[])
 
     return(
         <Box>
-            <img src ={url} alt="blog" />
+            {/* <img src ={url} alt="blog" /> */}
         </Box>
     )
 }

@@ -13,6 +13,7 @@ const Home = () => {
                 <Categories/>
             </Grid>
             <Grid item lg={10} sm={10} xs={12}>
+              
             </Grid>
         </Grid>
     </>
