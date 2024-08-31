@@ -11,8 +11,20 @@ const axiosInstance=axios.create({
 })
 
 axiosInstance.interceptors.request.use(
-    (config)=>{console.log(config);console.log("config");return config},
+    (config)=>{
+        //console.log("config")
+        //console.log(config);
+        //console.log("config.TYPE.params")
+        //console.log(config?.TYPE);
+        if(config.TYPE.params){
+            config.params=config.TYPE.params
+        }else if(config.TYPE.query){
+            config.url=config.url+'/'+config.TYPE.query
+        }
+        //console.log("config");
+        return config},
     (error)=>{return Promise.reject(error)}
+    
 )
 
 axiosInstance.interceptors.response.use(
@@ -23,8 +35,8 @@ axiosInstance.interceptors.response.use(
 
 const processResponse = (response) => {
     if (response?.status === 200) {
-        console.log("response.data")
-        console.log(response.data)
+        //console.log("response.data")
+        //console.log(response.data)
         return { isSuccess: true, data: response.data }
     } else {
         return {
@@ -37,21 +49,21 @@ const processResponse = (response) => {
 }
 const processError=(error)=>{
     if(error.response){
-        console.log('error in response ',error.toJSON())
+        console.log('error in response ',error)
         return {
             isError:true,
             msg:API_NOTIFICATION_MESSAGES.responseFailure,
             code:error.response.status
         }
     }else if(error.request){
-        console.log('error in request ',error.toJSON())
+        console.log('error in request ',error)
         return {
             isError:true,
             msg:API_NOTIFICATION_MESSAGES.requestFailure,
             code:""
         }
     }else{
-        console.log('error in response ',error.toJSON())
+        console.log('error in response ',error)
         return {
             isError:true,
             msg:API_NOTIFICATION_MESSAGES.networkError,
@@ -65,17 +77,28 @@ const processError=(error)=>{
 const SERVICE_URLS={
     userSignup:{url:'/signup',method:'POST'},
     userLogin:{url:'/login',method:'POST'},
-    uploadFile:{url:'/file/upload' , method:'POST'}
+    uploadFile:{url:'/file/upload' , method:'POST'},
+    createPost:{url:'/create' , method:'POST'},
+    getAllPost:{url:'/getAllPosts' , method:'GET',params:true}
 }
 
 const API={}
 for(const [key,value] of Object.entries(SERVICE_URLS)){
     API[key]=(body,showUploadProcess,ShowDownloadProcess)=>{
+        //console.log("body")
+        //console.log(body)
+        const headers = {
+            'Content-Type': value.url === '/file/upload' ? 'multipart/form-data' : 'application/json',
+            //sending token
+            authorization:sessionStorage.getItem('accessToken')
+        };
         return axiosInstance({
             method:value.method,
             url:value.url,
             data:body,
             responseType:value.responseType,
+            headers,
+            TYPE:getType(value,body),
             onUploadProgress:function(processEvent){
                 if(showUploadProcess){
                     let percentageCompleted=Math.round((processEvent.loaded*100)/processEvent.total)
@@ -92,3 +115,20 @@ for(const [key,value] of Object.entries(SERVICE_URLS)){
     }
 }
 export {API}
+
+const getType=(value,body)=>{
+    //console.log("value"+"body")
+    //console.log(value)
+    //console.log(body)
+    if(value.params){
+        //console.log("Hi")
+        return{params:body}
+    }else if(value.query){
+        if(typeof body==='object'){
+            return {query:body?._id}
+        }else{
+            return {query:body}
+        }    
+    }
+    return{}
+}

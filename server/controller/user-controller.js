@@ -22,6 +22,7 @@ export const signupUser=async(req,res)=>{
 export const loginUser=async(req,res)=>{
     try {
         let user=await userModel.findOne({username:req.body.username})
+        console.log(user)
         if(!user){
             return res.status(400).json({msg:"Username dosn't match"})
         }
