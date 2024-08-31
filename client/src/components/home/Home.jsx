@@ -14,7 +14,11 @@ const Home = () => {
                 <Categories/>
             </Grid>
             <Grid item lg={10} sm={10} xs={12}>
+<<<<<<< HEAD
               <Posts/>
+=======
+              
+>>>>>>> 05ef25f50ab7fbbba8c4ca0bd39d119fa5e83739
             </Grid>
         </Grid>
     </>
