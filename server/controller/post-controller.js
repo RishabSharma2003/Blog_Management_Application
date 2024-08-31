@@ -34,3 +34,4 @@ export const getALLPost = async (req,res) => {
     }
 
 }
+

@@ -13,6 +13,6 @@ router.post('/login',loginUser);
 router.post('/file/upload',upload.single('file'),uploadImage);
 
 router.post('/create',authenticateToken,createPost)
-router.get('/getAllPosts',authenticateToken,getALLPost)
+router.get('/posts',authenticateToken,getALLPost)
 
 export default router

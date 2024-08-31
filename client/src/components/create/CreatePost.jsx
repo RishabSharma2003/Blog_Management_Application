@@ -44,7 +44,8 @@ const CreatePost = () => {
                           picture: `data:${contentType};base64,${base64String}`
                         
                       }));
-                      //console.log(post.picture)
+                      console.log("post.picture")
+                      console.log(post.picture)
                       console.log("updated isSuccess");
                   } else {
                       console.error('Upload failed:', response);

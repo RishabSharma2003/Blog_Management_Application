@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { API_NOTIFICATION_MESSAGES } from './errorMessages.js'
 
+
 const API_URL='http://localhost:8000'
 const axiosInstance=axios.create({
     baseURL:API_URL,
@@ -79,7 +80,7 @@ const SERVICE_URLS={
     userLogin:{url:'/login',method:'POST'},
     uploadFile:{url:'/file/upload' , method:'POST'},
     createPost:{url:'/create' , method:'POST'},
-    getAllPost:{url:'/getAllPosts' , method:'GET',params:true}
+    getAllPost:{url:'/posts' , method:'GET',params:true}
 }
 
 const API={}
@@ -130,5 +131,5 @@ const getType=(value,body)=>{
             return {query:body}
         }    
     }
-    return{}
+    return{};
 }
