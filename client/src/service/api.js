@@ -80,7 +80,8 @@ const SERVICE_URLS={
     userLogin:{url:'/login',method:'POST'},
     uploadFile:{url:'/file/upload' , method:'POST'},
     createPost:{url:'/create' , method:'POST'},
-    getAllPost:{url:'/posts' , method:'GET',params:true}
+    getAllPost:{url:'/posts' , method:'GET',params:true},
+    getPostById:{url:'/post', method:'GET', query:true}
 }
 
 const API={}

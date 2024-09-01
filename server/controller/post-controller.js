@@ -35,3 +35,10 @@ export const getALLPost = async (req,res) => {
 
 }
 
+export const getPost = async (req,res) =>{
+    try {
+        const post = await postModel.findById(req.params.id)
+    } catch (error) {
+        res.status(500).json({msg:error.message})
+    }
+}
