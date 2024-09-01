@@ -4,6 +4,7 @@ import { useEffect, useState,useContext } from 'react';
 import { API } from '../../service/api';
 import { Delete, Edit } from '@mui/icons-material';
 import { DataContext } from '../../context/DataProvider';
+import Comments from './comments/Comments';
 
 
 
@@ -64,6 +65,7 @@ const DetailView = () => {
             </Author>
 
             <Description>{post.description}</Description>
+            <Comments post/>
         </Container>
     )
 }
