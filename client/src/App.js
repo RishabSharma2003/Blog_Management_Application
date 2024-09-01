@@ -8,6 +8,7 @@ import DataProvider from './context/DataProvider';
 import DetailView from './components/details/DeatilView';
 import {BrowserRouter,Routes,Route, Navigate, Outlet} from 'react-router-dom'
 import CreatePost from './components/create/CreatePost';
+import UpdatePost from './components/create/UpdatePost';
 
 const PrivateRoute=({isAuthenticated,...props})=>{
   return isAuthenticated?
@@ -42,8 +43,14 @@ function App() {
                 <Route path='/create' element={<CreatePost/>}/>
               </Route>
 
+              {/* to see details of paticular post */}
               <Route path='/details/:id' element={<PrivateRoute isAuthenticated={isAuthenticated}/>}>
                 <Route path='/details/:id' element={<DetailView/>}/>
+              </Route>
+
+              {/* to update a post */}
+              <Route path='/update/:id' element={<PrivateRoute isAuthenticated={isAuthenticated}/>}>
+                <Route path='/update/:id' element={<UpdatePost/>}/>
               </Route>
 
             </Routes>
