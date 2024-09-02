@@ -14,8 +14,16 @@ app.use(express.json());
 app.use(cors())
 app.use('/',router)
 
-const PORT=8000;
+//only for prduction
+if(process.env.NODE_ENV==='production'){
+    app.use(express.static("client/build"))
+}
+
+const PORT=8000||process.env.PORT;
 app.listen(PORT,()=>{console.log(`server is running on ${PORT}`)})
 
+const URL=process.env.MONGODB_URI || `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.5s5n5.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+
+
 //establishing database connection
-connection(process.env.DB_USERNAME,process.env.DB_PASSWORD)
+connection(URL)
