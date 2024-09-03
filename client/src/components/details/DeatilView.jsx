@@ -47,9 +47,11 @@ const DetailView = () => {
         <Container>
             <Image src ={url} alt="blog" />
             <Box style={{ float: 'right' }}>
-                {console.log(account.role)}
+                {console.log("datakl2nfkecwjebfjweflkwefkqj")}
+                {console.log(account.username)}
+                {console.log(post.username)}
                 {   
-                    account.username === post.username|| account.role==='1' && 
+                    ((account.username === post.username) || (account.role==='1')) && 
                     <>  
                         <Link to={`/update/${post._id}`}>
                             <EditIcon color="primary"/> 
@@ -61,9 +63,9 @@ const DetailView = () => {
             <Heading>{post.title}</Heading>
 
             <Author>
-                {/* <Link to={`/?username=${post.username}`} style={{ textDecoration: 'none', color: 'inherit' }}> */}
+                <Link to={`/?username=${post.username}`} style={{ textDecoration: 'none', color: 'inherit' }}>
                     <Typography>Author: <span style={{fontWeight: 700}}>{post.username}</span></Typography>
-                {/* </Link> */}
+                </Link>
                 <Typography style={{marginLeft: 'auto'}}>{new Date(post.createdDate).toDateString()}</Typography>
             </Author>
 

@@ -25,7 +25,7 @@ const Comment = ({comment, setToggle,toggle}) => {
              <Container>
                 <Name>{comment.name}</Name>
                 <StyledDate>{new Date(comment.date).toDateString()} </StyledDate>
-                { comment.name === account.username || account.role==='1' && <DeleteIcon onClick={() => removeComment()} /> }
+                { ((comment.name === account.username) || (account.role==='1')) && <DeleteIcon onClick={() => removeComment()} /> }
             </Container>
             <Box>
                 <Typography>{comment.comments}</Typography>

@@ -65,10 +65,10 @@ export const Comments = ({post}) =>{
                     value={comment.comments}
                     onChange={(e) => handleChange(e)}
                 />
-                <Button variant="container" color="primary" size="medium" style={{height:40}}
+                <Button variant="contained" color="primary" size="medium" style={{height:40}}
                 onClick={(e) => addComment(e)}>Post</Button>
-                <Button variant="container" color="primary" size="medium" style={{height:40}}
-                onClick={(e) => setToggle(!toggle)}>Comment refesh Button</Button>
+                {/* <Button variant="contained" color="primary" size="medium" style={{height:40}}
+                onClick={(e) => setToggle(!toggle)}>Comment refesh Button</Button> */}
             </Container>    
             <Box>
                 {
@@ -94,7 +94,7 @@ const Image = styled('img')({
 
 const Styledtext = styled(TextareaAutosize)`
     height: 100px;
-    width: 100%;
+    width: 80%;
     margin:0 20px;
 `
 
