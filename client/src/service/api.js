@@ -1,12 +1,12 @@
 import axios from 'axios';
 import { API_NOTIFICATION_MESSAGES } from './errorMessages.js';
 
-// const API_URL = '';
-const API_URL = 'http://localhost:8000';
+const API_URL = 'https://blog-managment-backened-3.onrender.com';
+// const API_URL = 'http://localhost:8000';
 
 const axiosInstance = axios.create({
     baseURL: API_URL,
-    timeout: 10000,
+    timeout: 100000,
     headers: {
         'Content-Type': 'application/json'
     }

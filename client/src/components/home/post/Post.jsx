@@ -15,7 +15,7 @@ const Post = ({post}) =>{
         <Title>{post.categories}</Title>
         <Heading>{addElipsis(post.title,20)}</Heading>
         <Title>{post.username}</Title>
-        <Details>{addElipsis(post.description,100)}</Details>
+        <Details>{addElipsis(post.description,50)}</Details>
     </Container>
     )
 }
@@ -26,7 +26,7 @@ const Container = styled(Box)`
     display: flex;
     align-items: center;
     flex-direction: column;
-    height: 300px;
+    height: 350px;
     & > img, & > p {
         padding: 0 5px 5px 5px;
     }
