@@ -47,8 +47,9 @@ const DetailView = () => {
         <Container>
             <Image src ={url} alt="blog" />
             <Box style={{ float: 'right' }}>
+                {console.log(account.role)}
                 {   
-                    account.username === post.username && 
+                    account.username === post.username|| account.role==='1' && 
                     <>  
                         <Link to={`/update/${post._id}`}>
                             <EditIcon color="primary"/> 

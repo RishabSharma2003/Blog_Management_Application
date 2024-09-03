@@ -56,13 +56,13 @@ const Login = ({isUserAuthenticated}) => {
   const loginUser=async()=>{
     let response=await API.userLogin(login)
     if(response.isSuccess){
-      console.log("response")
-      console.log(response)
       setLogin(loginInitialValues)
       setError('')
       sessionStorage.setItem('accessToken',`Bearer ${response.data.accessToken}`)
       sessionStorage.setItem('refreshToken',`Bearer ${response.data.refreshToken}`)
-      setAccount({username:response.data.username,name:response.data.name})
+      console.log("response.data")
+      console.log(response.data)
+      setAccount({username:response.data.username,name:response.data.user,role:response.data.role})
       isUserAuthenticated(true)
       navigate('/')
     }else{

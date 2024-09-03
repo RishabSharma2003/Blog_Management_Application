@@ -8,7 +8,7 @@ const app=express();
 dotenv.config()
 
 // Increase the limit for JSON and URL-encoded body data
-app.use(express.json({ limit: '10mb' })); // Increase limit if needed
+app.use(express.json({ limit: '50mb' })); // Increase limit if needed
 
 app.use(express.json());
 app.use(cors())
