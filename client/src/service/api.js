@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { API_NOTIFICATION_MESSAGES } from './errorMessages.js';
 
-// const API_URL = 'https://blog-managment-backened-3.onrender.com';
-const API_URL = 'http://localhost:8000';
+const API_URL = 'https://blog-managment-backened.onrender.com';
+// const API_URL = 'http://localhost:8000';
 
 const axiosInstance = axios.create({
     baseURL: API_URL,
