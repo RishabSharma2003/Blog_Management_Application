@@ -22,6 +22,7 @@ export const signupUser=async(req,res)=>{
 
 export const loginUser=async(req,res)=>{
     try {
+        // localStorage.clear();
         console.log("eopf")
         let user=await userModel.findOne({username:req.body.username})
         console.log(user)
