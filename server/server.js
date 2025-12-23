@@ -19,7 +19,7 @@ if(process.env.NODE_ENV==='production'){
     app.use(express.static("client/build"))
 }
 
-const PORT=8000||process.env.PORT;
+const PORT=process.env.PORT || 8000;
 app.listen(PORT,()=>{console.log(`server is running on ${PORT}`)})
 
 const URL=process.env.MONGODB_URI || `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.5s5n5.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
