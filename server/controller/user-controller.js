@@ -8,12 +8,10 @@ dotenv.config()
 
 export const signupUser=async(req,res)=>{
     try {
-        console.log("fhwef")
         const hashedPassword=await bcrypt.hash(req.body.password,10);
 
         const user={username:req.body.username,name:req.body.name,password:hashedPassword,role:"0"};
-        console.log(user)
-        const newUser=await new userModel(user).save()
+        await new userModel(user).save()
         return res.status(200).json({msg:"signup successfull"})
     } catch (error) {
         return res.status(500).json({msg:`error while signup ${error}`})
@@ -22,18 +20,13 @@ export const signupUser=async(req,res)=>{
 
 export const loginUser=async(req,res)=>{
     try {
-        // localStorage.clear();
-        console.log("eopf")
         let user=await userModel.findOne({username:req.body.username})
-        console.log(user)
         if(!user){
             return res.status(400).json({msg:"Username dosn't match"})
         }
-        console.log("user finded")
         let match=await bcrypt.compare(req.body.password,user.password)
         
         if(match){
-            console.log("matched")
             const accessToken=jwt.sign(user.toJSON(),process.env.ACCESS_SECRET_KEY,{expiresIn:'15m'})
             const refreshToken=jwt.sign(user.toJSON(),process.env.REFRESH_SECRET_KEY)
 

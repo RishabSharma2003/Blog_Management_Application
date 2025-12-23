@@ -33,7 +33,7 @@ const UpdatePost = () => {
             }
         }
         fetchData()
-    },[])
+    })
 
     useEffect(() => {
       const getImage = async () => {
@@ -48,17 +48,12 @@ const UpdatePost = () => {
                   if (response.isSuccess) {
                       const base64String=response.data.stringURL
                       const contentType =response.data.contentType;
-                    
-                      //console.log(base64String);
                       
                       setPost(prevPost => ({
                           ...prevPost,
                           picture: `data:${contentType};base64,${base64String}`
                         
                       }));
-                      console.log("post.picture")
-                      console.log(post.picture)
-                      console.log("updated isSuccess");
                   } else {
                       console.error('Upload failed:', response);
                   }

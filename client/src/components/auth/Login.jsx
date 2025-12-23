@@ -55,6 +55,7 @@ const Login = ({isUserAuthenticated}) => {
   //on login
   const loginUser=async()=>{
     let response=await API.userLogin(login)
+    console.log(response)
     if(response.isSuccess){
       setLogin(loginInitialValues)
       setError('')
